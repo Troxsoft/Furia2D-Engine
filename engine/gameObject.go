@@ -38,7 +38,7 @@ type GameObject struct {
 	groups    map[string]bool
 }
 
-var gameObjects map[string]GameObject = make(map[string]GameObject)
+var gameObjects map[string]*GameObject = make(map[string]*GameObject)
 var instancesGameObjects []*GameObject
 var (
 	ErrShapeInvalid = errors.New("the shape is invalid")
@@ -111,28 +111,27 @@ func (g *GameObject) GetVar(name string) any {
 func (g *GameObject) SetVar(name string, value any) {
 	g.vars[name] = value
 }
-func SetUpdateGameObject(name string, f func(*GameObject, *Event)) {
-	gameObjects[name].funcs["update"] = func(g *GameObject, a any) {
+
+func (g *GameObject) SetUpdate(f func(*GameObject, *Event)) {
+	g.funcs["update"] = func(g *GameObject, a any) {
 		f(g, a.(*Event))
 	}
 }
-func SetStartGameObject(name string, f func(*GameObject, any)) {
-	gameObjects[name].funcs["start"] = f
-}
-func SetImageGameObject(name string, img *FuriImage) {
-	if gameObjects[name].shape == SHAPE_IMAGE {
 
-		gameObjects[name].vars["image"] = img
+func (g *GameObject) SetStart(f func(*GameObject, any)) {
+	g.funcs["start"] = f
+}
+func (g *GameObject) SetImage(img *FuriImage) {
+	if g.shape == SHAPE_IMAGE {
+
+		g.vars["image"] = img
 	} else {
 		panic("the image not is valid")
 	}
 }
 
-func SetVarGameObject(name string, nameVar string, value any) {
-	gameObjects[name].vars[nameVar] = value
-}
-func AddToGroupGameObject(name string, groupName string) {
-	gameObjects[name].groups[groupName] = true
+func (g *GameObject) AddToGroup(groupName string) {
+	g.groups[groupName] = true
 }
 
 func InstanceGameObject(name string, params any) *GameObject {
@@ -162,15 +161,13 @@ func InstanceGameObject(name string, params any) *GameObject {
 	return k
 }
 
-func SetFunctionGameObject(name string, nameFunction string, function func(*GameObject, any)) {
-	gameObjects[name].funcs[nameFunction] = function
+func (g *GameObject) SetFunction(nameFunction string, function func(*GameObject, any)) {
+	g.funcs[nameFunction] = function
 }
 func (g *GameObject) Execute(nameFunction string, params any) {
 	g.funcs[nameFunction](g, params)
 }
-func SetColorGameObject(name string, color Color) {
-	gameObjects[name].vars["color"] = color
-}
+
 func (g *GameObject) SetColor(color Color) {
 	g.SetVar("color", color)
 }
@@ -179,14 +176,6 @@ func (g3 *GameObject) SetColor3(r, g, b uint8) {
 }
 func (g3 *GameObject) SetColor2(r, g, b, a uint8) {
 	g3.SetVar("color", NewColor(r, g, b, a))
-}
-func (g *GameObject) SetImage(image FuriImage) {
-	if g.shape == SHAPE_IMAGE {
-
-		g.SetVar("image", image)
-	} else {
-		panic("the shape not is image")
-	}
 }
 func (g *GameObject) Draw() {
 	if IsRunning() == false {
@@ -207,12 +196,12 @@ func (g *GameObject) Draw() {
 		}
 	}
 }
-func CreateGameObject(name string, shape Shape, size Size, position Position) error {
+func CreateGameObject(name string, shape Shape, size Size, position Position) (*GameObject, error) {
 	if IsRunning() == false {
-		return ErrGameNotRunning
+		return nil, ErrGameNotRunning
 	} else {
 		if IsValidShape(shape) == false {
-			return ErrShapeInvalid
+			return nil, ErrShapeInvalid
 		} else {
 			keys := make([]string, 0, len(gameObjects))
 			for k := range gameObjects {
@@ -229,23 +218,23 @@ func CreateGameObject(name string, shape Shape, size Size, position Position) er
 				groups:   make(map[string]bool),
 			}
 			j.collision = NewCollisionRectagle(j)
-			gameObjects[name] = *j
+			gameObjects[name] = j
 			//gameObjects[name].collision = NewCollisionRectagle(&gameObjects[name])
-			SetFunctionGameObject(name, "start", func(g *GameObject, a any) {
+			j.SetFunction("start", func(g *GameObject, a any) {
 
 			})
-			SetFunctionGameObject(name, "update", func(g *GameObject, a any) {
+			j.SetFunction("update", func(g *GameObject, a any) {
 
 			})
 
-			SetVarGameObject(name, "color", NewColor2(0, 0, 0))
+			j.SetVar("color", NewColor2(0, 0, 0))
 
 			if shape == SHAPE_IMAGE {
-				SetVarGameObject(name, "image", nil)
-				SetVarGameObject(name, "color", NewColor2(255, 255, 255))
+				j.SetVar("image", nil)
+				j.SetVar("color", NewColor2(255, 255, 255))
 
 			}
-			return nil
+			return j, nil
 		}
 	}
 }

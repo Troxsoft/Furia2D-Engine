@@ -13,20 +13,27 @@ import (
 	e "github.com/Troxsoft/Furia2D-Engine/engine"
 )
 
+var (
+	playerG  *e.GameObject
+	enemigoG *e.GameObject
+	aliadoG  *e.GameObject
+)
+
 func main() {
 	e.InitGame("controlador basico :)", e.NewSize(600, 400), func() {
 		//init
-		e.CreateGameObject("player", e.SHAPE_IMAGE, e.NewSize(50, 50), e.NewPosition(30, 30))
-		e.CreateGameObject("enemigo", e.SHAPE_RECTANGLE, e.NewSize(30, 30), e.NewPosition(100, 100))
-		e.CreateGameObject("aliado", e.SHAPE_RECTANGLE, e.NewSize(50, 50), e.NewPosition(40, 80))
-		e.SetColorGameObject("aliado", e.NewColor2(0, 0, 255))
-		e.SetColorGameObject("enemigo", e.NewColor2(255, 0, 0))
-		e.SetImageGameObject("player", e.NewImage("sapo.jpg"))
-		e.AddToGroupGameObject("enemigo", "ene")
-		e.SetStartGameObject("player", func(g *e.GameObject, a any) {
+
+		playerG, _ = e.CreateGameObject("player", e.SHAPE_IMAGE, e.NewSize(200, 200), e.NewPosition(30, 30))
+		enemigoG, _ = e.CreateGameObject("enemigo", e.SHAPE_RECTANGLE, e.NewSize(30, 30), e.NewPosition(100, 100))
+		aliadoG, _ = e.CreateGameObject("aliado", e.SHAPE_RECTANGLE, e.NewSize(50, 50), e.NewPosition(40, 80))
+		aliadoG.SetColor(e.NewColor2(0, 0, 255))
+		enemigoG.SetColor(e.NewColor2(255, 0, 0))
+		playerG.SetImage(e.NewImage("sapo.jpg"))
+		enemigoG.AddToGroup("ene")
+		playerG.SetStart(func(g *e.GameObject, a any) {
 			g.SetPosition(e.NewPosition(0, a.(int32)))
 		})
-		e.SetUpdateGameObject("player", func(g *e.GameObject, a *e.Event) {
+		playerG.SetUpdate(func(g *e.GameObject, a *e.Event) {
 			if collisi, _ := a.OnCollision(); collisi != nil {
 				if collisi.IsInGroup("ene") {
 					g.SetColor3(255, 0, 0)
@@ -61,5 +68,6 @@ func main() {
 	})
 
 }
+
 ```
     
