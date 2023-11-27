@@ -129,7 +129,6 @@ func (g *GameObject) SetImage(img *FuriImage) {
 		panic("the image not is valid")
 	}
 }
-
 func (g *GameObject) AddToGroup(groupName string) {
 	g.groups[groupName] = true
 }
