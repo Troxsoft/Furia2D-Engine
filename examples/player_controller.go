@@ -1,7 +1,7 @@
 package main
 
 import (
-	e "furi-engine/engine"
+	e "furia2d-engine/engine"
 )
 
 func main() {

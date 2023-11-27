@@ -1,4 +1,4 @@
-module furi-engine
+module furia2d-engine
 
 go 1.21.4
 
