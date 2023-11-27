@@ -1,7 +1,7 @@
 MIT LICENCE
 
 
-# Furi-Engine
+# Furia2D-Engine
 Un motor de videojuego escrito usando Golang 100% usando la poderosa libreria Raylib
                   Y MUY FACIL
 ### Ejemplos
@@ -10,7 +10,7 @@ Un motor de videojuego escrito usando Golang 100% usando la poderosa libreria Ra
 package main
 
 import (
-	e "furi-engine/engine"
+	e "furia2d-engine/engine"
 )
 
 func main() {
