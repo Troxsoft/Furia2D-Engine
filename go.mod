@@ -1,4 +1,4 @@
-module furia2d-engine
+module github.com/Troxsoft/Furia2D-Engine
 
 go 1.21.4
 
