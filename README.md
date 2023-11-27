@@ -10,7 +10,7 @@ Un motor de videojuego escrito usando Golang 100% usando la poderosa libreria Ra
 package main
 
 import (
-	e "furia2d-engine/engine"
+	e "github.com/Troxsoft/Furia2D-Engine/engine"
 )
 
 func main() {
