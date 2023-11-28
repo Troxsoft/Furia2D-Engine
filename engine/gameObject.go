@@ -112,9 +112,9 @@ func (g *GameObject) SetVar(name string, value any) {
 	g.vars[name] = value
 }
 
-func (g *GameObject) SetUpdate(f func(*GameObject, *Event)) {
+func (g *GameObject) SetUpdate(f func(*GameObject, *GameObjectEvent)) {
 	g.funcs["update"] = func(g *GameObject, a any) {
-		f(g, a.(*Event))
+		f(g, a.(*GameObjectEvent))
 	}
 }
 

@@ -20,6 +20,15 @@ func NewCollisionRectagle(g *GameObject) CollisionRectangle {
 		disabled:   false,
 	}
 }
+func (cr *CollisionRectangle) OnCollisionInTheGroup(group string) (*GameObject, bool) {
+	if h, _ := cr.OnCollision(); h != nil {
+		if h.IsInGroup(group) {
+			return h, true
+		}
+
+	}
+	return nil, false
+}
 
 func (cr *CollisionRectangle) OnCollision() (*GameObject, bool) {
 	for i := 0; i < len(instancesGameObjects); i++ {

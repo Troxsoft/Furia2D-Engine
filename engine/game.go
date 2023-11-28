@@ -24,26 +24,24 @@ func SetBackgroundColor(color_ Color) {
 func _update() {
 	for i := 0; i < len(instancesGameObjects); i++ {
 		//fmt.Println(rl.IsK)
-		instancesGameObjects[i].Execute("update", &Event{
-			obj: instancesGameObjects[i],
-		})
+		instancesGameObjects[i].Execute("update", NewGameObjectEvent(instancesGameObjects[i]))
 		instancesGameObjects[i].Draw()
 
 	}
 }
 
-func InitGame(title string, size Size, start func(), update func()) {
+func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
 	isRunning = true
 	rl.InitWindow(int32(size.W), int32(size.H), title)
 
 	rl.SetTargetFPS(60)
-	start()
+	start(NewGameEvent())
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
 		rl.ClearBackground(ConvertColor(colorBackColor))
 		//fmt.Println(rl.GetKeyPressed())
-		update()
+		update(NewGameEvent())
 		_update()
 		//rl.GetCharPressed()
 		rl.EndDrawing()
