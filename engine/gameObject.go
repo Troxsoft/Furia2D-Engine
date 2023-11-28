@@ -9,8 +9,9 @@ import (
 type Shape string
 
 const (
-	SHAPE_RECTANGLE Shape = "rectangle"
-	SHAPE_IMAGE     Shape = "image"
+	SHAPE_RECTANGLE       Shape = "rectangle"
+	SHAPE_IMAGE           Shape = "image"
+	SHAPE_ANIMATION_IMAGE Shape = "animationImage"
 )
 
 func ConvertColor(color Color) rl.Color {
@@ -19,7 +20,7 @@ func ConvertColor(color Color) rl.Color {
 
 func IsValidShape(shape Shape) bool {
 
-	if shape != "rectangle" && shape != "image" {
+	if shape != "rectangle" && shape != "image" && shape != "animationImage" {
 		return false
 	}
 	return true
@@ -121,7 +122,7 @@ func (g *GameObject) SetUpdate(f func(*GameObject, *GameObjectEvent)) {
 func (g *GameObject) SetStart(f func(*GameObject, any)) {
 	g.funcs["start"] = f
 }
-func (g *GameObject) SetImage(img *FuriImage) {
+func (g *GameObject) SetImage(img *FuriaImage) {
 	if g.shape == SHAPE_IMAGE {
 
 		g.vars["image"] = img
@@ -132,7 +133,6 @@ func (g *GameObject) SetImage(img *FuriImage) {
 func (g *GameObject) AddToGroup(groupName string) {
 	g.groups[groupName] = true
 }
-
 func InstanceGameObject(name string, params any) *GameObject {
 	i := gameObjects[name]
 	vars__ := make(map[string]any)
@@ -189,10 +189,25 @@ func (g *GameObject) Draw() {
 				rl.DrawRectangle(g.position.X, g.position.Y, int32(g.size.W), int32(g.size.H), ConvertColor(g.GetVar("color").(Color)))
 			} else if g.shape == SHAPE_IMAGE {
 				if g.GetVar("image") != nil {
-					g.GetVar("image").(*FuriImage).DrawImage(g.Position(), g.GetVar("color").(Color), g.size)
+					g.GetVar("image").(*FuriaImage).DrawImage(g.Position(), g.GetVar("color").(Color), g.size)
 				}
+			} else if g.shape == SHAPE_ANIMATION_IMAGE {
+				if g.GetVar("animationImage") != nil {
+					g.GetVar("animationImage").(*AnimationImage).Draw(g.GetVar("color").(Color), g.Position(), g.Size())
+				}
+			} else {
+
+				panic("shape invalid in the drawing object function :(")
 			}
 		}
+	}
+}
+
+func (g *GameObject) SetAnimationImage(ani *AnimationImage) {
+	if g.shape != SHAPE_ANIMATION_IMAGE {
+		panic("the shape not is 'animationImage' :(")
+	} else {
+		g.SetVar("animationImage", ani)
 	}
 }
 func CreateGameObject(name string, shape Shape, size Size, position Position) (*GameObject, error) {
@@ -232,6 +247,10 @@ func CreateGameObject(name string, shape Shape, size Size, position Position) (*
 				j.SetVar("image", nil)
 				j.SetVar("color", NewColor2(255, 255, 255))
 
+			}
+			if shape == SHAPE_ANIMATION_IMAGE {
+				j.SetVar("animationImage", nil)
+				j.SetVar("color", NewColor2(255, 255, 255))
 			}
 			return j, nil
 		}
