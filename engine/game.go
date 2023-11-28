@@ -32,6 +32,7 @@ func _update() {
 
 func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
 	isRunning = true
+	rl.SetConfigFlags(rl.FlagVsyncHint)
 	rl.InitWindow(int32(size.W), int32(size.H), title)
 
 	rl.SetTargetFPS(60)
