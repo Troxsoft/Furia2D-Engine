@@ -41,6 +41,32 @@ func (cr *CollisionRectangle) OnCollision() (*GameObject, bool) {
 
 }
 
+func (cr *CollisionRectangle) OnCollisionPos(pos Position) (*GameObject, bool) {
+	for i := 0; i < len(instancesGameObjects); i++ {
+
+		if cr.OnCollisionInPosition(instancesGameObjects[i].CollisionRect(), pos) {
+			return instancesGameObjects[i], true
+		}
+	}
+	return nil, false
+
+}
+
+func (cr *CollisionRectangle) OnCollisionInPosition(other CollisionRectangle, pos Position) bool {
+	if cr.disabled {
+		return false
+	}
+	if other.disabled {
+		return false
+	}
+	if cr.gameObject.id == other.gameObject.id {
+		return false
+	}
+	return rl.CheckCollisionRecs(
+		rl.NewRectangle(float32(pos.X), float32(pos.Y), float32(cr.gameObject.size.W), float32(cr.gameObject.size.H)),
+		rl.NewRectangle(float32(other.gameObject.position.X), float32(other.gameObject.position.Y), float32(other.gameObject.size.W), float32(other.gameObject.size.H)))
+}
+
 func (cr *CollisionRectangle) OnCollisionTo(other CollisionRectangle) bool {
 	if cr.disabled {
 		return false

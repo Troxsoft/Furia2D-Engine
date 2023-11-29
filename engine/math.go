@@ -22,3 +22,51 @@ func NewPosition(x, y int32) Position {
 		Y: y,
 	}
 }
+
+func ClampPos(value, max, min Position) Position {
+	newPos := value
+	//     X
+	if newPos.X > max.X {
+		newPos.X = max.X
+	}
+	if newPos.X < min.X {
+		newPos.X = min.X
+	}
+	//     Y
+	if newPos.Y > max.Y {
+		newPos.Y = max.Y
+	}
+	if newPos.Y < min.Y {
+		newPos.Y = min.Y
+	}
+	return newPos
+}
+
+func Clamp(value, max, min int) int {
+	if value > max {
+		return max
+	}
+	if value < min {
+		return min
+	}
+	return value
+}
+func Clampf64(value, max, min float64) float64 {
+	if value > max {
+		return max
+	}
+	if value < min {
+		return min
+	}
+	return value
+}
+
+func Clampf32(value, max, min float32) float32 {
+	if value > max {
+		return max
+	}
+	if value < min {
+		return min
+	}
+	return value
+}

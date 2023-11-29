@@ -30,6 +30,14 @@ func (k *GameObjectEvent) OnCollisionTo(other *GameObject) bool {
 func (k *GameObjectEvent) OnCollision() (*GameObject, bool) {
 	return k.obj.collision.OnCollision()
 }
+func (k *GameObjectEvent) OnCollisionPos(pos Position) (*GameObject, bool) {
+	return k.obj.collision.OnCollisionPos(pos)
+}
+
+func (k *GameObjectEvent) OnCollisionInPosition(other *GameObject, pos Position) bool {
+	return k.obj.collision.OnCollisionInPosition(other.collision, pos)
+}
+
 func (k *GameObjectEvent) IsMouseReleased(mouse int32) bool {
 	if rl.IsMouseButtonReleased(mouse) {
 		mouseX := rl.GetMouseX()
@@ -43,6 +51,7 @@ func (k *GameObjectEvent) IsMouseReleased(mouse int32) bool {
 
 	return false
 }
+
 func (k *GameObjectEvent) IsMouseUp(mouse int32) bool {
 	if rl.IsMouseButtonUp(mouse) {
 		mouseX := rl.GetMouseX()
