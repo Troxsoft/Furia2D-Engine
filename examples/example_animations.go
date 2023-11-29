@@ -6,7 +6,7 @@ var animacion *e.GameObject
 
 func main() {
 	e.InitGame("animaciones", e.NewSize(500, 500), func(ge *e.GameEvent) {
-		animacion, _ = e.CreateGameObject("ani", e.SHAPE_ANIMATION_IMAGE, e.NewSize(100, 100), e.NewPosition(50, 50))
+		animacion, _ = e.CreateGameObject("ani", e.SHAPE_ANIMATION_IMAGE, e.NewSize(500, 500), e.NewPosition(0, 0))
 		animacion.SetAnimationImage(e.NewAnimationImage([]*e.FuriaImage{
 			e.NewImage("sapo.jpg"),
 			e.NewImage("sapo.jpg"),
@@ -17,7 +17,7 @@ func main() {
 			e.NewImage("petro.jpg"),
 			e.NewImage("petro.jpg"),
 			e.NewImage("petro.jpg"),
-		}, 100))
+		}, 200))
 		e.InstanceGameObject("ani", nil)
 	}, func(ge *e.GameEvent) {
 

@@ -45,6 +45,18 @@ var (
 	ErrShapeInvalid = errors.New("the shape is invalid")
 )
 
+func (g *GameObject) Vars() map[string]any {
+	//hhhhhhhhhhhhhhhhhhhhhhhhhhhh
+	newV := make(map[string]any)
+	for k, v := range g.vars {
+		newV[k] = v
+	}
+	return newV
+
+}
+func (g *GameObject) Id() int {
+	return g.id
+}
 func (g *GameObject) CollisionRect() CollisionRectangle {
 	return g.collision
 }
@@ -130,8 +142,64 @@ func (g *GameObject) SetImage(img *FuriaImage) {
 		panic("the image not is valid")
 	}
 }
+func (g *GameObject) Image() *FuriaImage {
+	if g.shape == SHAPE_IMAGE {
+		switch any(g.GetVar("image")).(type) {
+		case *FuriaImage:
+			return g.GetVar("image").(*FuriaImage)
+			break
+		}
+
+	} else {
+		panic("the image not is valid")
+	}
+	return nil
+}
+
 func (g *GameObject) AddToGroup(groupName string) {
 	g.groups[groupName] = true
+}
+func (g *GameObject) Groups() []string {
+	keys := []string{}
+	values := []bool{}
+	arr := []string{}
+	for k, v := range g.groups {
+		keys = append(keys, k)
+		values = append(values, v)
+	}
+	for i, v := range values {
+		if v == true {
+			arr = append(arr, keys[i])
+		}
+	}
+	return arr
+
+}
+func (g *GameObject) Instance(params any) *GameObject {
+	i := g
+	vars__ := make(map[string]any)
+	for k, v := range i.vars {
+		vars__[k] = v
+	}
+	funcs__ := make(map[string]func(*GameObject, any))
+	for k, v := range i.funcs {
+		funcs__[k] = v
+	}
+	k := &GameObject{
+		name:     i.name,
+		size:     i.size,
+		position: i.position,
+		shape:    i.shape,
+		funcs:    funcs__,
+		hide:     i.hide,
+		vars:     vars__,
+		id:       len(instancesGameObjects) + 1,
+		groups:   i.groups,
+	}
+	k.collision = NewCollisionRectagle(k)
+	k.Execute("start", params)
+	instancesGameObjects = append(instancesGameObjects, k)
+	return k
 }
 func InstanceGameObject(name string, params any) *GameObject {
 	i := gameObjects[name]
@@ -163,6 +231,13 @@ func InstanceGameObject(name string, params any) *GameObject {
 func (g *GameObject) SetFunction(nameFunction string, function func(*GameObject, any)) {
 	g.funcs[nameFunction] = function
 }
+func (g *GameObject) Functions() map[string]func(*GameObject, any) {
+	newV := make(map[string]func(*GameObject, any))
+	for k, v := range g.funcs {
+		newV[k] = v
+	}
+	return newV
+}
 func (g *GameObject) Execute(nameFunction string, params any) {
 	g.funcs[nameFunction](g, params)
 }
@@ -175,6 +250,9 @@ func (g3 *GameObject) SetColor3(r, g, b uint8) {
 }
 func (g3 *GameObject) SetColor2(r, g, b, a uint8) {
 	g3.SetVar("color", NewColor(r, g, b, a))
+}
+func (g *GameObject) Color() Color {
+	return g.GetVar("color").(Color)
 }
 func (g *GameObject) Draw() {
 	if IsRunning() == false {
@@ -209,6 +287,17 @@ func (g *GameObject) SetAnimationImage(ani *AnimationImage) {
 	} else {
 		g.SetVar("animationImage", ani)
 	}
+}
+func (g *GameObject) AnimationImage() *AnimationImage {
+	if g.shape != SHAPE_ANIMATION_IMAGE {
+		panic("the shape not is 'animationImage' :(")
+	}
+	switch any(g.GetVar("animationImage")).(type) {
+	case *AnimationImage:
+		return g.GetVar("animationImage").(*AnimationImage)
+		break
+	}
+	return nil
 }
 func CreateGameObject(name string, shape Shape, size Size, position Position) (*GameObject, error) {
 	if IsRunning() == false {
