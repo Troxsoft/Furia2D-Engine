@@ -2,8 +2,10 @@ package engine
 
 import (
 	"errors"
+	"fmt"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
+	"github.com/tawesoft/golib/v2/dialog"
 )
 
 var isRunning = false
@@ -28,11 +30,19 @@ func _update() {
 		instancesGameObjects[i].Draw()
 
 	}
+	for i := 0; i < len(ui_text); i++ {
+		//fmt.Println(rl.IsK)
+		ui_text[i].Draw()
+
+	}
 }
 
 func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
 	isRunning = true
-
+	err := dialog.Init()
+	if err != nil {
+		fmt.Println(err)
+	}
 	rl.SetConfigFlags(rl.FlagVsyncHint)
 	rl.InitWindow(int32(size.W), int32(size.H), title)
 
