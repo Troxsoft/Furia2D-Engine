@@ -16,8 +16,11 @@ func main() {
 		e.ShowMessageBoxError(":(", "mala")
 		e.ShowMessageBoxInfo(":)", "fue una broma")
 		text = e.NewUiText(fmt.Sprint(contador), e.NewPosition(50, 50), 20)
-
+		k := e.NewColorZone(e.NewColor2(0, 255, 0), e.NewPosition(0, 0), e.NewSize(500, 400))
+		k.SetRoundness(100)
+		k.SetSegments(30)
 		//fmt.Println(obj.F)
+		//e.NewUiText(fmt.Sprint(contador), e.NewPosition(50, 50), 20)
 	},
 		func(ge *e.GameEvent) {
 			contador += 1

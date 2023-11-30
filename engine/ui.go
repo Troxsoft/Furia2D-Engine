@@ -12,7 +12,84 @@ var (
 
 	//text
 	ui_text []*UiText
+	//color zone
+	ui_colorZone []*UiColorZone
 )
+
+type UiColorZone struct {
+	roundness float32
+	color     Color
+	pos       Position
+	size      Size
+	segments  int
+	hide      bool
+}
+
+func NewColorZone(color Color, pos Position, size Size) *UiColorZone {
+	p := &UiColorZone{
+		roundness: 0,
+		color:     color,
+		pos:       pos,
+		size:      size,
+		segments:  10,
+		hide:      false,
+	}
+	p = p.add()
+	return p
+}
+func (c *UiColorZone) SetSegments(s int) {
+	c.segments = s
+}
+func (c *UiColorZone) Segments() int {
+	return c.segments
+}
+
+func (c *UiColorZone) SetRoundness(r float32) {
+	c.roundness = r
+}
+func (c *UiColorZone) Roundness() float32 {
+	return c.roundness
+}
+func (c *UiColorZone) Hide() {
+	//rl.DrawRectangle
+	c.hide = true
+}
+func (c *UiColorZone) Show() {
+	c.hide = false
+}
+func (c *UiColorZone) Draw() {
+	if c.hide == false {
+		rl.DrawRectangleRounded(rl.NewRectangle(float32(c.pos.X), float32(c.pos.Y), float32(c.size.W), float32(c.size.H)), c.roundness, int32(c.segments), ConvertColor(c.color))
+	}
+}
+func (c *UiColorZone) add() *UiColorZone {
+	ui_colorZone = append(ui_colorZone, c)
+	return ui_colorZone[len(ui_colorZone)-1]
+}
+func (c *UiColorZone) SetColor(nColor Color) {
+	c.color = nColor
+}
+func (c *UiColorZone) SetColor2(r, g, b, a uint8) {
+	c.color = NewColor(r, g, b, a)
+}
+func (c *UiColorZone) SetColor3(r, g, b uint8) {
+	c.color = NewColor2(r, g, b)
+}
+func (c *UiColorZone) Color() Color {
+	return c.color
+}
+func (c *UiColorZone) SetSize(nSize Size) {
+	c.size = nSize
+}
+func (c *UiColorZone) Size() Size {
+	return c.size
+}
+func (c *UiColorZone) SetPosition(nPos Position) {
+	c.pos = nPos
+}
+func (c *UiColorZone) Position() Position {
+	return c.pos
+}
 
 type UiText struct {
 	text  string

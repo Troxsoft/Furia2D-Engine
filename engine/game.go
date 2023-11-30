@@ -24,6 +24,11 @@ func SetBackgroundColor(color_ Color) {
 	colorBackColor = color_
 }
 func _update() {
+	for i := 0; i < len(ui_colorZone); i++ {
+		//fmt.Println(rl.IsK)
+		ui_colorZone[i].Draw()
+
+	}
 	for i := 0; i < len(instancesGameObjects); i++ {
 		//fmt.Println(rl.IsK)
 		instancesGameObjects[i].Execute("update", NewGameObjectEvent(instancesGameObjects[i]))
@@ -35,6 +40,7 @@ func _update() {
 		ui_text[i].Draw()
 
 	}
+
 }
 
 func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
