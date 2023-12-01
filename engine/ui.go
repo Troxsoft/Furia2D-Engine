@@ -6,15 +6,122 @@ import (
 )
 
 var (
-	/*				[ON]	[ON]	[ON]			[ON]	[ON]->DRAW NO
-	ui objects: UiButton - UiText - UiTextBox - UiSelect - UiMessageBox ->ALLS TYPES OF MESSAGEBOX
+	/*				[ON]	[ON]	[Working]			[ON]		[OFF]	[ON]->DRAW NO
+	ui objects: UiButton - UiText - UiInput -UiColorZone- UiSelect - UiMessageBox ->ALLS TYPES OF MESSAGEBOX
 	*/
 
 	//text
 	ui_text []*UiText
 	//color zone
 	ui_colorZone []*UiColorZone
+
+	//button
+	ui_button []*UiButton
 )
+
+type UiButton struct {
+	pos    Position
+	size   Size
+	Zone   *UiColorZone
+	Text   *UiText
+	hide   bool
+	colorA Color
+	wr     bool
+}
+
+func NewUiButton(txt string, color Color, pos Position, siz Size) *UiButton {
+	p := &UiButton{
+		pos:    pos,
+		size:   siz,
+		hide:   false,
+		Zone:   NewUiColorZone(color, pos, siz),
+		Text:   NewUiText(txt, NewPosition(int32(siz.W)/2+pos.X-int32(len(txt))*3, int32(siz.H)/2+pos.Y), 15),
+		colorA: color,
+		wr:     false,
+	}
+	p = p.add()
+
+	return p
+}
+func (b *UiButton) SetColor(color Color) {
+	b.colorA = color
+}
+func (b *UiButton) Color() Color {
+	return b.colorA
+}
+func (b *UiButton) Hide() {
+	b.hide = true
+	b.Zone.hide = true
+	b.Text.hide = true
+}
+func (b *UiButton) Show() {
+	b.hide = false
+	b.Zone.hide = false
+	b.Text.hide = false
+}
+func (b *UiButton) add() *UiButton {
+	ui_button = append(ui_button, b)
+	return ui_button[len(ui_button)-1]
+}
+func (b *UiButton) Draw() {
+	b.Text.pos.X = int32(b.size.W)/2 + b.pos.X - int32(len(b.Text.text))*3
+	b.Text.pos.Y = int32(b.size.H)/2 + b.pos.Y
+	x := GetMousePosition().X
+	y := GetMousePosition().Y
+
+	if b.Zone.color.R-20 > 0 && b.Zone.color.G-20 > 0 && b.Zone.color.B-20 > 0 {
+		//b.colorA = *NewColor2(b.Zone.color.R-20, b.Zone.color.G-20, b.Zone.color.B-20)
+		if rl.CheckCollisionRecs(rl.NewRectangle(float32(x), float32(y), 2, 2), rl.NewRectangle(float32(b.pos.X), float32(b.pos.Y), float32(b.size.W), float32(b.size.H))) {
+			if b.wr == false {
+				b.Zone.color = NewColor2(b.Zone.color.R-20, b.Zone.color.G-20, b.Zone.color.B-20)
+
+			}
+			if b.wr == false {
+				b.wr = true
+			}
+		} else {
+			b.Zone.color = b.colorA
+			b.wr = false
+		}
+	} else {
+		b.wr = false
+		b.Zone.SetColor(b.colorA)
+	}
+	rl.DrawRectangleRounded(rl.NewRectangle(float32(b.pos.X)-2, float32(b.pos.Y)-2, float32(b.size.W)+2, float32(b.size.H)+2), b.Zone.roundness, int32(b.Zone.segments+1000), ConvertColor(NewColor(50, 50, 70, 255)))
+	b.Zone.Draw()
+	b.Text.Draw()
+
+}
+func (b *UiButton) IsPressed() bool {
+	if rl.IsMouseButtonPressed(rl.MouseLeftButton) || rl.IsMouseButtonPressed(rl.MouseRightButton) {
+		x := GetMousePosition().X
+		y := GetMousePosition().Y
+		if rl.CheckCollisionRecs(rl.NewRectangle(float32(x), float32(y), 2, 2), rl.NewRectangle(float32(b.pos.X), float32(b.pos.Y), float32(b.size.W), float32(b.size.H))) {
+			return true
+		}
+	}
+	return false
+}
+func (b *UiButton) Size() Size {
+	return b.size
+}
+func (b *UiButton) SetSize(nsize Size) {
+	b.size = nsize
+	b.Zone.size = nsize
+	b.Text.pos.X = int32(b.size.W)/2 + b.pos.X - int32(len(b.Text.text))*3
+	b.Text.pos.Y = int32(b.size.H)/2 + b.pos.Y
+	//NewPosition((pos.X/2)+(pos.X-int32(siz.W)/2), (pos.Y/2)+(pos.Y-int32(siz.H)/2))
+}
+
+func (b *UiButton) Position() Position {
+	return b.pos
+}
+func (b *UiButton) SetPosition(nPos Position) {
+	b.pos = nPos
+	b.Zone.pos = b.pos
+	b.Text.pos.X = int32(b.size.W)/2 + b.pos.X - int32(len(b.Text.text))*3
+	b.Text.pos.Y = int32(b.size.H)/2 + b.pos.Y
+}
 
 type UiColorZone struct {
 	roundness float32
@@ -25,13 +132,13 @@ type UiColorZone struct {
 	hide      bool
 }
 
-func NewColorZone(color Color, pos Position, size Size) *UiColorZone {
+func NewUiColorZone(color Color, pos Position, size Size) *UiColorZone {
 	p := &UiColorZone{
 		roundness: 0,
 		color:     color,
 		pos:       pos,
 		size:      size,
-		segments:  10,
+		segments:  50,
 		hide:      false,
 	}
 	p = p.add()

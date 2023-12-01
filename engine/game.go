@@ -23,6 +23,9 @@ var colorBackColor Color = NewColor(50, 50, 80, 255)
 func SetBackgroundColor(color_ Color) {
 	colorBackColor = color_
 }
+func GetMousePosition() Position {
+	return NewPosition(rl.GetMouseX(), rl.GetMouseY())
+}
 func _update() {
 	for i := 0; i < len(ui_colorZone); i++ {
 		//fmt.Println(rl.IsK)
@@ -40,7 +43,11 @@ func _update() {
 		ui_text[i].Draw()
 
 	}
+	for i := 0; i < len(ui_button); i++ {
+		//fmt.Println(rl.IsK)
+		ui_button[i].Draw()
 
+	}
 }
 
 func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
