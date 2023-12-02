@@ -23,10 +23,17 @@ var colorBackColor Color = NewColor(50, 50, 80, 255)
 func SetBackgroundColor(color_ Color) {
 	colorBackColor = color_
 }
+func SetCamera(cam *Camera) {
+	camera = cam
+}
+func GetCamera() *Camera {
+	return camera
+}
 func GetMousePosition() Position {
 	return NewPosition(rl.GetMouseX(), rl.GetMouseY())
 }
 func _update() {
+
 	for i := 0; i < len(ui_colorZone); i++ {
 		//fmt.Println(rl.IsK)
 		ui_colorZone[i].Draw()
@@ -63,12 +70,21 @@ func InitGame(title string, size Size, start func(*GameEvent), update func(*Game
 	start(NewGameEvent())
 
 	for !rl.WindowShouldClose() {
+		update(NewGameEvent())
 		rl.BeginDrawing()
 		rl.ClearBackground(ConvertColor(colorBackColor))
-		//fmt.Println(rl.GetKeyPressed())
-		update(NewGameEvent())
+		if camera != nil {
+
+			rl.BeginMode2D(camera.camera)
+
+		}
 		_update()
+		//rl.Camera
+		//fmt.Println(rl.GetKeyPressed())
+
 		//rl.GetCharPressed()
+		//rl.DrawRectangle(30, 30, 30, 30, rl.Black)
+		rl.EndMode2D()
 		rl.EndDrawing()
 	}
 
