@@ -13,19 +13,22 @@ func _newGameObjectUnregister(pos Position, siz Size, shape Shape, id int) *Game
 	j.collision = NewCollisionRectagle(j)
 	return j
 }
+func RayCast(initPos Position, dirreccion Position, long uint32) *GameObject {
+	return nil
+}
 
 /*
 physics type: Colliders and collisions[ON]
 */
-func (g *GameObject) MoveTo(npos Position) (*GameObject, bool) {
+func (g *GameObject) MoveTo(npos Position) *GameObject {
 
 	coll2 := _newGameObjectUnregister(npos, NewSize(g.size.W, g.size.H), g.shape, g.id)
-	if h, _ := coll2.collision.OnCollision(); h != nil {
+	if h := coll2.collision.OnCollision(); h != nil {
 
-		return h, false
+		return h
 	} else {
 		g.SetPosition(npos)
-		return nil, true
+		return nil
 	}
 
 }

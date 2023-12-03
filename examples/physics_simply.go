@@ -14,7 +14,7 @@ func main() {
 		obj.SetUpdate(func(g *e.GameObject, goe *e.GameObjectEvent) {
 			g.SetPosition(e.ClampPos(g.Position(), e.NewPosition(600, 600), e.NewPosition(0, 0)))
 			if ge.IsKeyDown(ge.KeyRight) {
-				objetoColision, _ := g.MoveTo(e.NewPosition(g.Position().X+10, g.Position().Y))
+				objetoColision := g.MoveTo(e.NewPosition(g.Position().X+10, g.Position().Y))
 				if objetoColision != nil {
 					g.SetColor3(255, 0, 0)
 				} else {

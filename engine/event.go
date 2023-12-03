@@ -21,16 +21,16 @@ type GameObjectEvent struct {
 	MouseButtonBack    int32
 }
 
-func (k *GameObjectEvent) OnCollisionInTheGroup(group string) (*GameObject, bool) {
+func (k *GameObjectEvent) OnCollisionInTheGroup(group string) *GameObject {
 	return k.obj.collision.OnCollisionInTheGroup(group)
 }
 func (k *GameObjectEvent) OnCollisionTo(other *GameObject) bool {
 	return k.obj.collision.OnCollisionTo(other.collision)
 }
-func (k *GameObjectEvent) OnCollision() (*GameObject, bool) {
+func (k *GameObjectEvent) OnCollision() *GameObject {
 	return k.obj.collision.OnCollision()
 }
-func (k *GameObjectEvent) OnCollisionPos(pos Position) (*GameObject, bool) {
+func (k *GameObjectEvent) OnCollisionPos(pos Position) *GameObject {
 	return k.obj.collision.OnCollisionPos(pos)
 }
 

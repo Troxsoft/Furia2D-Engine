@@ -24,7 +24,7 @@ func main() {
 		})
 		obstaculos.SetUpdate(func(g *e.GameObject, goe *e.GameObjectEvent) {
 
-			if em, _ := goe.OnCollisionInTheGroup("o"); em != nil {
+			if em := goe.OnCollisionInTheGroup("o"); em != nil {
 				e.NewUiText("perdistes aña", e.NewPosition(100, 100), 50)
 			}
 		})
@@ -33,7 +33,7 @@ func main() {
 		})
 		player.SetUpdate(func(cl *e.GameObject, goe *e.GameObjectEvent) {
 			cl.MoveTo(e.NewPosition(cl.Position().X, cl.Position().Y+5))
-			if gh, _ := cl.MoveTo(e.NewPosition(cl.Position().X+2, cl.Position().Y)); gh != nil {
+			if gh := cl.MoveTo(e.NewPosition(cl.Position().X+2, cl.Position().Y)); gh != nil {
 				enzo := e.NewUiText("perdistes aña", e.NewPosition(0, 0), 20)
 				enzo.SetColor3(255, 0, 0)
 			}

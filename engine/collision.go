@@ -22,35 +22,35 @@ func NewCollisionRectagle(g *GameObject) CollisionRectangle {
 		disabled:   false,
 	}
 }
-func (cr *CollisionRectangle) OnCollisionInTheGroup(group string) (*GameObject, bool) {
-	if h, _ := cr.OnCollision(); h != nil {
+func (cr *CollisionRectangle) OnCollisionInTheGroup(group string) *GameObject {
+	if h := cr.OnCollision(); h != nil {
 		if h.IsInGroup(group) {
-			return h, true
+			return h
 		}
 
 	}
-	return nil, false
+	return nil
 }
 
-func (cr *CollisionRectangle) OnCollision() (*GameObject, bool) {
+func (cr *CollisionRectangle) OnCollision() *GameObject {
 	for i := 0; i < len(instancesGameObjects); i++ {
 
 		if cr.OnCollisionTo(instancesGameObjects[i].CollisionRect()) {
-			return instancesGameObjects[i], true
+			return instancesGameObjects[i]
 		}
 	}
-	return nil, false
+	return nil
 
 }
 
-func (cr *CollisionRectangle) OnCollisionPos(pos Position) (*GameObject, bool) {
+func (cr *CollisionRectangle) OnCollisionPos(pos Position) *GameObject {
 	for i := 0; i < len(instancesGameObjects); i++ {
 
 		if cr.OnCollisionInPosition(instancesGameObjects[i].CollisionRect(), pos) {
-			return instancesGameObjects[i], true
+			return instancesGameObjects[i]
 		}
 	}
-	return nil, false
+	return nil
 
 }
 

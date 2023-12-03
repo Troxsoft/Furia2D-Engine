@@ -25,7 +25,7 @@ func main() {
 			g.SetPosition(e.NewPosition(0, a.(int32)))
 		})
 		playerG.SetUpdate(func(g *e.GameObject, a *e.GameObjectEvent) {
-			if collisi, _ := a.OnCollisionInTheGroup("ene"); collisi != nil {
+			if collisi := a.OnCollisionInTheGroup("ene"); collisi != nil {
 				g.SetColor3(255, 0, 0)
 			} else {
 				g.SetColor3(255, 255, 255)
