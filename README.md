@@ -4,6 +4,9 @@ MIT LICENCE
 # Furia2D-Engine
 Un motor de videojuego escrito usando Golang 100% usando la poderosa libreria Raylib
                   Y MUY FACIL
+
+[![Furia2D stats](https://github-readme-stats.vercel.app/api/wakatime?username=Troxsoft)](https://github.com/anuraghazra/github-readme-stats)
+
 ### Ejemplo
 - Hola cuadrado
 ```go
