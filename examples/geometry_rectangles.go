@@ -50,8 +50,9 @@ func main() {
 				cada = 0
 			}
 			cada += 1
-			if ge.IsKeyDown(ge.KeyUp) {
-				player.MoveTo(e.NewPosition(player.Position().X+2, player.Position().Y-50))
+			suelo2 := e.RayCast(player.Id(), player.Position(), e.DOWN, 35, 1)
+			if ge.IsKeyPressed(ge.KeyUp) && suelo2 != nil {
+				player.MoveTo(e.NewPosition(player.Position().X+20, player.Position().Y-200))
 			}
 		})
 }
