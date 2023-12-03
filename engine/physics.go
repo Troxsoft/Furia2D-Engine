@@ -1,6 +1,8 @@
 package engine
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func _newGameObjectUnregister(pos Position, siz Size, shape Shape, id int) *GameObject {
 	j := &GameObject{
@@ -13,7 +15,16 @@ func _newGameObjectUnregister(pos Position, siz Size, shape Shape, id int) *Game
 	j.collision = NewCollisionRectagle(j)
 	return j
 }
-func RayCast(initPos Position, dirreccion Position, long uint32) *GameObject {
+func RayCast(idToIgnore int, initPos Position, dirreccion Position, long uint32, jump uint16) *GameObject {
+	var i uint32
+	ojb := _newGameObjectUnregister(initPos, NewSize(2, 2), SHAPE_RECTANGLE, idToIgnore)
+	for i = 0; i < long; i += uint32(jump) {
+		vectorPos := NewPosition(initPos.X+dirreccion.X, initPos.Y+dirreccion.Y)
+		//if rl.CheckCollisionRecs(rl.NewRectangle(ConvertPosition(vectorPos).X,ConvertPosition(vectorPos).Y,))
+		if cp23 := ojb.collision.OnCollisionPos(vectorPos); cp23 != nil {
+			return cp23
+		}
+	}
 	return nil
 }
 
