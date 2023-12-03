@@ -13,9 +13,11 @@ var cada int = 0
 func main() {
 	e.InitGame("welcome to Furia2D-Engine :)", e.NewSize(500, 400), func(ge *e.GameEvent) {
 		player, _ = e.CreateGameObject("player", e.SHAPE_RECTANGLE, e.NewSize(30, 30), e.NewPosition(30, 30))
+		player.SetColor(e.BLUE)
 		piso, _ = e.CreateGameObject("piso", e.SHAPE_RECTANGLE, e.NewSize(900, 50), e.NewPosition(0, 350))
 		camara = e.NewCamera(e.NewPosition(0, 0), player.Position())
 		obstaculos, _ = e.CreateGameObject("obstaculos", e.SHAPE_RECTANGLE, e.NewSize(40, 40), e.NewPosition(0, 0))
+		piso.SetColor(e.GREEN)
 		obstaculos.SetColor(e.NewColor2(255, 0, 0))
 		obstaculos.SetStart(func(g *e.GameObject, a any) {
 			g.SetPosition(a.(e.Position))
