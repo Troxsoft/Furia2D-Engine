@@ -29,5 +29,4 @@ func main() {
 
 ```
 - mas ejemplos en 'examples'
-## Furia2D esta escrito en ingles ,pero el github,documentacion NO.
-### los binarios de los ejemplos estan compilados para su demostracion y descarga.Estos estan compilados para windows
+#### Furia2D esta escrito en ingles ,pero el github,documentacion NO.
