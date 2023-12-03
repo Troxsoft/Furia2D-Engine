@@ -33,7 +33,10 @@ func GetMousePosition() Position {
 	return NewPosition(rl.GetMouseX(), rl.GetMouseY())
 }
 func _update() {
+	for i := 0; i < len(musics_update); i++ {
 
+		rl.UpdateMusicStream(musics_update[i].music)
+	}
 	for i := 0; i < len(instancesGameObjects); i++ {
 		//fmt.Println(rl.IsK)
 		instancesGameObjects[i].Execute("update", NewGameObjectEvent(instancesGameObjects[i]))
@@ -51,7 +54,7 @@ func InitGame(title string, size Size, start func(*GameEvent), update func(*Game
 	}
 	rl.SetConfigFlags(rl.FlagVsyncHint)
 	rl.InitWindow(int32(size.W), int32(size.H), title)
-
+	rl.InitAudioDevice()
 	rl.SetTargetFPS(60)
 	start(NewGameEvent())
 
