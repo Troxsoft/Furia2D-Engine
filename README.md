@@ -5,8 +5,8 @@ MIT LICENCE
 Un motor de videojuego escrito usando Golang 100% usando la poderosa libreria Raylib
                   Y MUY FACIL
 
-[![Raylib](https://github.com/raysan5/raylib)
-
+![Raylib](https://github.com/raysan5/raylib)
+![Raylib-go](https://github.com/gen2brain/raylib-go)
 ### Ejemplo
 - Hola cuadrado
 ```go
