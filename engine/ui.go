@@ -1,6 +1,8 @@
 package engine
 
 import (
+	"fmt"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/tawesoft/golib/v2/dialog"
 )
@@ -295,6 +297,12 @@ func (text *UiText) Position() Position {
 }
 func (text *UiText) SetText(nText string) {
 	text.text = nText
+}
+func (text *UiText) SetTextAsFormat(format string, pa ...any) {
+	text.text = fmt.Sprintf(format, pa...)
+}
+func (text *UiText) SetTextAsString(pa any) {
+	text.text = fmt.Sprint(pa)
 }
 func (text *UiText) Text() string {
 	return text.text
