@@ -1,6 +1,8 @@
 package engine
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
 
 type CollisionRectangle struct {
 	gameObject *GameObject
@@ -75,6 +77,7 @@ func (cr *CollisionRectangle) OnCollisionTo(other CollisionRectangle) bool {
 		return false
 	}
 	if cr.gameObject.id == other.gameObject.id {
+		//fmt.Println(cr.gameObject.id)
 		return false
 	}
 	return rl.CheckCollisionRecs(

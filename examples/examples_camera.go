@@ -15,6 +15,7 @@ func main() {
 		h.Instance(nil)
 		obj = obj.Instance(nil)
 		e.SetCamera(camera)
+
 	},
 		func(ge *e.GameEvent) {
 			camera.SetTarget(e.NewPosition(obj.Position().X-250, obj.Position().Y-200))

@@ -34,27 +34,13 @@ func GetMousePosition() Position {
 }
 func _update() {
 
-	for i := 0; i < len(ui_colorZone); i++ {
-		//fmt.Println(rl.IsK)
-		ui_colorZone[i].Draw()
-
-	}
 	for i := 0; i < len(instancesGameObjects); i++ {
 		//fmt.Println(rl.IsK)
 		instancesGameObjects[i].Execute("update", NewGameObjectEvent(instancesGameObjects[i]))
 		instancesGameObjects[i].Draw()
 
 	}
-	for i := 0; i < len(ui_text); i++ {
-		//fmt.Println(rl.IsK)
-		ui_text[i].Draw()
 
-	}
-	for i := 0; i < len(ui_button); i++ {
-		//fmt.Println(rl.IsK)
-		ui_button[i].Draw()
-
-	}
 }
 
 func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
@@ -70,15 +56,52 @@ func InitGame(title string, size Size, start func(*GameEvent), update func(*Game
 	start(NewGameEvent())
 
 	for !rl.WindowShouldClose() {
-		update(NewGameEvent())
 		rl.BeginDrawing()
-		rl.ClearBackground(ConvertColor(colorBackColor))
 		if camera != nil {
 
-			rl.BeginMode2D(camera.camera)
+			rl.ClearBackground(ConvertColor(colorBackColor))
+			//rl.DrawText("ano", 30, 100, 29, rl.Brown)
+			for i := 0; i < len(ui_colorZone); i++ {
+				//fmt.Println(rl.IsK)
+				ui_colorZone[i].Draw()
 
+			}
+			for i := 0; i < len(ui_text); i++ {
+				//fmt.Println(rl.IsK)
+				ui_text[i].Draw()
+				//fmt.Println(ui_text[i])
+
+			}
+			for i := 0; i < len(ui_button); i++ {
+				//fmt.Println(rl.IsK)
+				ui_button[i].Draw()
+
+			}
+			rl.BeginMode2D(camera.camera)
+			_update()
+
+		} else {
+			rl.ClearBackground(ConvertColor(colorBackColor))
+			for i := 0; i < len(ui_colorZone); i++ {
+				//fmt.Println(rl.IsK)
+				ui_colorZone[i].Draw()
+
+			}
+			_update()
+			for i := 0; i < len(ui_text); i++ {
+				//fmt.Println(rl.IsK)
+				ui_text[i].Draw()
+				//fmt.Println(ui_text[i])
+
+			}
+			for i := 0; i < len(ui_button); i++ {
+				//fmt.Println(rl.IsK)
+				ui_button[i].Draw()
+
+			}
 		}
-		_update()
+		update(NewGameEvent())
+
 		//rl.Camera
 		//fmt.Println(rl.GetKeyPressed())
 
