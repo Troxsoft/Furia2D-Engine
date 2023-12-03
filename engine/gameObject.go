@@ -107,13 +107,22 @@ func (g *GameObject) IsInGroup(gr string) bool {
 	}
 	return false
 }
+
 func (g *GameObject) Position() Position {
 	return g.position
 }
+
+/*
+physics type: Colliders and collisions[OFF]
+*/
 func (g *GameObject) SetPosition2(x, y int32) {
 	g.position.X = x
 	g.position.Y = y
 }
+
+/*
+physics type: Colliders and collisions[OFF]
+*/
 func (g *GameObject) SetPosition(pos Position) {
 	g.position = pos
 }
