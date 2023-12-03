@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	e "github.com/Troxsoft/Furia2D-Engine/engine"
 )
 
@@ -24,6 +26,9 @@ func main() {
 			if ge.IsKeyDown(ge.KeyLeft) {
 				g.MoveTo(e.NewPosition(g.Position().X-10, g.Position().Y))
 				g.SetColor3(0, 0, 0)
+			}
+			if col32 := goe.RayCast(g.Position(), e.RIGHT, 50, 1); col32 != nil {
+				fmt.Println("muy cerca ;(")
 			}
 
 		})

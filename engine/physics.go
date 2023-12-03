@@ -19,8 +19,10 @@ func RayCast(idToIgnore int, initPos Position, dirreccion Position, long uint32,
 	var i uint32
 	ojb := _newGameObjectUnregister(initPos, NewSize(2, 2), SHAPE_RECTANGLE, idToIgnore)
 	for i = 0; i < long; i += uint32(jump) {
-		vectorPos := NewPosition(initPos.X+dirreccion.X, initPos.Y+dirreccion.Y)
+		vectorPos := NewPosition(initPos.X+dirreccion.X+int32(i), initPos.Y+dirreccion.Y+int32(i))
+		//fmt.Println(vectorPos)
 		//if rl.CheckCollisionRecs(rl.NewRectangle(ConvertPosition(vectorPos).X,ConvertPosition(vectorPos).Y,))
+		//rl.DrawLine(initPos.X, initPos.Y, initPos.X+(int32(jump)*int32(long)), initPos.Y+(int32(jump)*int32(long)), rl.Brown)
 		if cp23 := ojb.collision.OnCollisionPos(vectorPos); cp23 != nil {
 			return cp23
 		}

@@ -28,9 +28,9 @@ func NewPos(x, y int32) Position {
 
 var (
 	DOWN  = NewPosition(0, -1) // physics -> yes,draw ->UP
-	UP    = NewPosition(0, +1) // physics -> yes,draw ->DOWN
+	UP    = NewPosition(0, 1)  // physics -> yes,draw ->DOWN
 	LEFT  = NewPosition(-1, 0) // physics -> yes,draw ->yes
-	RIGHT = NewPosition(+1, 0) // physics -> yes,draw ->yes
+	RIGHT = NewPosition(1, 0)  // physics -> yes,draw ->yes
 )
 
 func ClampPos(value, max, min Position) Position {
