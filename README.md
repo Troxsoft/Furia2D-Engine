@@ -2,14 +2,16 @@ MIT LICENCE
 
 
 # Furia2D-Engine
-Un motor de videojuego escrito usando Golang 100% usando la poderosa libreria Raylib
-                  Y MUY FACIL
+A game engine written using Golang 100% using the powerful Raylib library
+                  AND VERY EASY
+
+
 
 ![Raylib](https://github.com/raysan5/raylib)
 ![Raylib-go](https://github.com/gen2brain/raylib-go)
 
 ### Ejemplo
-- Hola cuadrado
+- Hello rectangle 
 ```go
 package main
 
@@ -32,5 +34,5 @@ func main() {
 }
 
 ```
-- mas ejemplos en 'examples'
-#### Furia2D esta escrito en ingles ,pero el github,documentacion NO.
+- more examples in'examples'
+#### FURIA2D is funny and easy
