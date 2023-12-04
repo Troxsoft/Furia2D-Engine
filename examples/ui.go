@@ -16,12 +16,12 @@ func main() {
 		e.ShowMessageBoxAlert("alerta", "empieza la diversion")
 		e.ShowMessageBoxError(":(", "mala")
 		e.ShowMessageBoxInfo(":)", "fue una broma")
-		text = e.NewUiText(fmt.Sprint(contador), e.NewPosition(50, 50), 20)
-		k := e.NewUiColorZone(e.NewColor2(0, 255, 0), e.NewPosition(0, 0), e.NewSize(500, 400))
+		text = e.NewUiText(e.GetCurrentScene(), fmt.Sprint(contador), e.NewPosition(50, 50), 20)
+		k := e.NewUiColorZone(e.GetCurrentScene(), e.NewColor2(0, 255, 0), e.NewPosition(0, 0), e.NewSize(500, 400))
 		k.SetRoundness(100)
 
 		k.SetSegments(30)
-		btn = e.NewUiButton("hola como ", e.NewColor2(30, 30, 70), e.NewPosition(273, 200), e.NewSize(100, 30))
+		btn = e.NewUiButton(e.GetCurrentScene(), "hola como ", e.NewColor2(30, 30, 70), e.NewPosition(273, 200), e.NewSize(100, 30))
 
 		//btn.SetPosition(e.NewPosition(200, 200)) //fmt.Println(obj.F)
 		//e.NewUiText(fmt.Sprint(contador), e.NewPosition(50, 50), 20)

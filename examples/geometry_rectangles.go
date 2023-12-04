@@ -25,7 +25,7 @@ func main() {
 		obstaculos.SetUpdate(func(g *e.GameObject, goe *e.GameObjectEvent) {
 
 			if em := goe.OnCollisionInTheGroup("o"); em != nil {
-				e.NewUiText("perdistes aña", e.NewPosition(100, 100), 50)
+				e.NewUiText(e.GetCurrentScene(), "perdistes aña", e.NewPosition(100, 100), 50)
 			}
 		})
 		piso.SetUpdate(func(cl *e.GameObject, goe *e.GameObjectEvent) {
@@ -34,19 +34,19 @@ func main() {
 		player.SetUpdate(func(cl *e.GameObject, goe *e.GameObjectEvent) {
 			cl.MoveTo(e.NewPosition(cl.Position().X, cl.Position().Y+5))
 			if gh := cl.MoveTo(e.NewPosition(cl.Position().X+2, cl.Position().Y)); gh != nil {
-				enzo := e.NewUiText("perdistes aña", e.NewPosition(0, 0), 20)
+				enzo := e.NewUiText(e.GetCurrentScene(), "perdistes aña", e.NewPosition(0, 0), 20)
 				enzo.SetColor3(255, 0, 0)
 			}
 		})
-		e.SetCamera(camara)
-		player = player.Instance(nil)
-		piso = piso.Instance(nil)
+		e.GetCurrentScene().SetCamera(camara)
+		player = player.Instance(e.GetCurrentScene(), nil)
+		piso = piso.Instance(e.GetCurrentScene(), nil)
 		cada = int(player.Position().X + 10)
 	},
 		func(ge *e.GameEvent) {
 			camara.SetTarget(e.NewPosition(player.Position().X, piso.Position().Y-200))
 			if cada > 150 {
-				obstaculos.Instance(e.NewPosition(player.Position().X+20+camara.Target().X, 320))
+				obstaculos.Instance(e.GetCurrentScene(), e.NewPosition(player.Position().X+20+camara.Target().X, 320))
 				cada = 0
 			}
 			cada += 1

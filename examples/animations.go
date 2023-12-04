@@ -18,7 +18,7 @@ func main() {
 			e.NewImage("petro.jpg"),
 			e.NewImage("petro.jpg"),
 		}, 200))
-		e.InstanceGameObject("ani", nil)
+		animacion.Instance(e.GetCurrentScene(), nil)
 	}, func(ge *e.GameEvent) {
 
 	})

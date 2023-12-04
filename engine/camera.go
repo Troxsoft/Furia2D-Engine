@@ -2,8 +2,6 @@ package engine
 
 import rl "github.com/gen2brain/raylib-go/raylib"
 
-var camera *Camera = nil
-
 type Camera struct {
 	camera   rl.Camera2D
 	target   Position

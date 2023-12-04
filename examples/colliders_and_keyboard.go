@@ -48,10 +48,10 @@ func main() {
 				g.SetPosition2(g.Position().X, g.Position().Y+2)
 			}
 		})
-		e.InstanceGameObject("enemigo", nil)
-		e.InstanceGameObject("player", int32(30))
-		e.InstanceGameObject("player", int32(300))
-		e.InstanceGameObject("aliado", nil)
+		enemigoG.Instance(e.GetCurrentScene(), nil)
+		playerG.Instance(e.GetCurrentScene(), int32(30))
+		playerG.Instance(e.GetCurrentScene(), int32(300))
+		aliadoG.Instance(e.GetCurrentScene(), nil)
 	}, func(eg *e.GameEvent) {
 		//update
 

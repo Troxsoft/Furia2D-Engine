@@ -23,12 +23,7 @@ var colorBackColor Color = NewColor(50, 50, 80, 255)
 func SetBackgroundColor(color_ Color) {
 	colorBackColor = color_
 }
-func SetCamera(cam *Camera) {
-	camera = cam
-}
-func GetCamera() *Camera {
-	return camera
-}
+
 func GetMousePosition() Position {
 	return NewPosition(rl.GetMouseX(), rl.GetMouseY())
 }
@@ -37,14 +32,16 @@ func _update() {
 
 		rl.UpdateMusicStream(musics_update[i].music)
 	}
-	for i := 0; i < len(instancesGameObjects); i++ {
+	for i := 0; i < len(scene_32445.instancesGameObjects); i++ {
 		//fmt.Println(rl.IsK)
-		instancesGameObjects[i].Execute("update", NewGameObjectEvent(instancesGameObjects[i]))
-		instancesGameObjects[i].Draw()
+		scene_32445.instancesGameObjects[i].Execute("update", NewGameObjectEvent(scene_32445.instancesGameObjects[i]))
+		scene_32445.instancesGameObjects[i].Draw()
 
 	}
 
 }
+
+var scene_32445 *Scene = NewScene()
 
 func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
 	isRunning = true
@@ -60,56 +57,8 @@ func InitGame(title string, size Size, start func(*GameEvent), update func(*Game
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
-		if camera != nil {
-
-			rl.ClearBackground(ConvertColor(colorBackColor))
-			//rl.DrawText("ano", 30, 100, 29, rl.Brown)
-			for i := 0; i < len(ui_colorZone); i++ {
-				//fmt.Println(rl.IsK)
-				ui_colorZone[i].Draw()
-
-			}
-			for i := 0; i < len(ui_text); i++ {
-				//fmt.Println(rl.IsK)
-				ui_text[i].Draw()
-				//fmt.Println(ui_text[i])
-
-			}
-			for i := 0; i < len(ui_button); i++ {
-				//fmt.Println(rl.IsK)
-				ui_button[i].Draw()
-
-			}
-			rl.BeginMode2D(camera.camera)
-			_update()
-
-		} else {
-			rl.ClearBackground(ConvertColor(colorBackColor))
-			for i := 0; i < len(ui_colorZone); i++ {
-				//fmt.Println(rl.IsK)
-				ui_colorZone[i].Draw()
-
-			}
-			_update()
-			for i := 0; i < len(ui_text); i++ {
-				//fmt.Println(rl.IsK)
-				ui_text[i].Draw()
-				//fmt.Println(ui_text[i])
-
-			}
-			for i := 0; i < len(ui_button); i++ {
-				//fmt.Println(rl.IsK)
-				ui_button[i].Draw()
-
-			}
-		}
+		scene_32445.Draw()
 		update(NewGameEvent())
-
-		//rl.Camera
-		//fmt.Println(rl.GetKeyPressed())
-
-		//rl.GetCharPressed()
-		//rl.DrawRectangle(30, 30, 30, 30, rl.Black)
 		rl.EndMode2D()
 		rl.EndDrawing()
 	}

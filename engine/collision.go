@@ -33,10 +33,10 @@ func (cr *CollisionRectangle) OnCollisionInTheGroup(group string) *GameObject {
 }
 
 func (cr *CollisionRectangle) OnCollision() *GameObject {
-	for i := 0; i < len(instancesGameObjects); i++ {
+	for i := 0; i < len(scene_32445.instancesGameObjects); i++ {
 
-		if cr.OnCollisionTo(instancesGameObjects[i].CollisionRect()) {
-			return instancesGameObjects[i]
+		if cr.OnCollisionTo(scene_32445.instancesGameObjects[i].CollisionRect()) {
+			return scene_32445.instancesGameObjects[i]
 		}
 	}
 	return nil
@@ -44,10 +44,10 @@ func (cr *CollisionRectangle) OnCollision() *GameObject {
 }
 
 func (cr *CollisionRectangle) OnCollisionPos(pos Position) *GameObject {
-	for i := 0; i < len(instancesGameObjects); i++ {
+	for i := 0; i < len(scene_32445.instancesGameObjects); i++ {
 
-		if cr.OnCollisionInPosition(instancesGameObjects[i].CollisionRect(), pos) {
-			return instancesGameObjects[i]
+		if cr.OnCollisionInPosition(scene_32445.instancesGameObjects[i].CollisionRect(), pos) {
+			return scene_32445.instancesGameObjects[i]
 		}
 	}
 	return nil

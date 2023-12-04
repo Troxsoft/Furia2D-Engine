@@ -40,7 +40,6 @@ type GameObject struct {
 }
 
 var gameObjects map[string]*GameObject = make(map[string]*GameObject)
-var instancesGameObjects []*GameObject
 var (
 	ErrShapeInvalid = errors.New("the shape is invalid")
 )
@@ -85,9 +84,9 @@ func (g *GameObject) SetSize2(w, h uint) {
 }
 func GetGameObjectsInTheGroup(gr string) []*GameObject {
 	groupsd := []*GameObject{}
-	for i := 0; i < len(instancesGameObjects); i++ {
-		if instancesGameObjects[i].IsInGroup(gr) {
-			groupsd = append(groupsd, instancesGameObjects[i])
+	for i := 0; i < len(scene_32445.instancesGameObjects); i++ {
+		if scene_32445.instancesGameObjects[i].IsInGroup(gr) {
+			groupsd = append(groupsd, scene_32445.instancesGameObjects[i])
 		}
 	}
 	return groupsd
@@ -184,7 +183,7 @@ func (g *GameObject) Groups() []string {
 	return arr
 
 }
-func (g *GameObject) Instance(params any) *GameObject {
+func (g *GameObject) Instance(scene *Scene, params any) *GameObject {
 	i := g
 	vars__ := make(map[string]any)
 	for k, v := range i.vars {
@@ -202,38 +201,12 @@ func (g *GameObject) Instance(params any) *GameObject {
 		funcs:    funcs__,
 		hide:     i.hide,
 		vars:     vars__,
-		id:       len(instancesGameObjects) + 1,
+		id:       len(scene.instancesGameObjects) + 1,
 		groups:   i.groups,
 	}
 	k.collision = NewCollisionRectagle(k)
 	k.Execute("start", params)
-	instancesGameObjects = append(instancesGameObjects, k)
-	return k
-}
-func InstanceGameObject(name string, params any) *GameObject {
-	i := gameObjects[name]
-	vars__ := make(map[string]any)
-	for k, v := range i.vars {
-		vars__[k] = v
-	}
-	funcs__ := make(map[string]func(*GameObject, any))
-	for k, v := range i.funcs {
-		funcs__[k] = v
-	}
-	k := &GameObject{
-		name:     i.name,
-		size:     i.size,
-		position: i.position,
-		shape:    i.shape,
-		funcs:    funcs__,
-		hide:     i.hide,
-		vars:     vars__,
-		id:       len(instancesGameObjects) + 1,
-		groups:   i.groups,
-	}
-	k.collision = NewCollisionRectagle(k)
-	k.Execute("start", params)
-	instancesGameObjects = append(instancesGameObjects, k)
+	scene.instancesGameObjects = append(scene.instancesGameObjects, k)
 	return k
 }
 

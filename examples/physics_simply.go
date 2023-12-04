@@ -32,8 +32,8 @@ func main() {
 			}
 
 		})
-		obj.Instance(nil)
-		obj2.Instance(nil)
+		obj.Instance(e.GetCurrentScene(), nil)
+		obj2.Instance(e.GetCurrentScene(), nil)
 		//fmt.Println(obj.F)
 	},
 		func(ge *e.GameEvent) {
