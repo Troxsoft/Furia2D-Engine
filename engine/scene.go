@@ -13,6 +13,18 @@ type Scene struct {
 	camera    *Camera
 }
 
+func (s *Scene) IsCurrent() bool {
+	return s == scene_32445
+}
+func (s *Scene) Buttons() []*UiButton {
+	return s.ui_button
+}
+func (s *Scene) ColorZones() []*UiColorZone {
+	return s.ui_colorZone
+}
+func (s *Scene) Texts() []*UiText {
+	return s.ui_text
+}
 func (s *Scene) GameObjectsObjects() []*GameObject {
 	return s.instancesGameObjects
 }
