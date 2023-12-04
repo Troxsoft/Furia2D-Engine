@@ -32,10 +32,11 @@ func _update() {
 
 		rl.UpdateMusicStream(musics_update[i].music)
 	}
-	for i := 0; i < len(scene_32445.instancesGameObjects); i++ {
+	b49 := *scene_32445
+	for i := 0; i < len(b49.instancesGameObjects); i++ {
 		//fmt.Println(rl.IsK)
-		scene_32445.instancesGameObjects[i].Execute("update", NewGameObjectEvent(scene_32445.instancesGameObjects[i]))
-		scene_32445.instancesGameObjects[i].Draw()
+		b49.instancesGameObjects[i].Execute("update", NewGameObjectEvent(b49.instancesGameObjects[i]))
+		b49.instancesGameObjects[i].Draw()
 
 	}
 

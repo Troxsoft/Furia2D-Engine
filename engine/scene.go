@@ -60,6 +60,7 @@ func (s *Scene) Draw() {
 
 		}
 		rl.BeginMode2D(s.camera.camera)
+
 		_update()
 	} else {
 		rl.ClearBackground(ConvertColor(colorBackColor))

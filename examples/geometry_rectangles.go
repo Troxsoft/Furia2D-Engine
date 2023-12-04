@@ -9,9 +9,13 @@ var piso *e.GameObject
 var camara *e.Camera
 var obstaculos *e.GameObject
 var cada int = 0
+var overScene *e.Scene = e.NewScene()
 
 func main() {
 	e.InitGame("welcome to Furia2D-Engine :)", e.NewSize(500, 400), func(ge *e.GameEvent) {
+
+		e.NewUiText(overScene, "perdistes", e.NewPos(29, 20), 30)
+
 		player, _ = e.CreateGameObject("player", e.SHAPE_RECTANGLE, e.NewSize(30, 30), e.NewPosition(30, 30))
 		player.SetColor(e.BLUE)
 		piso, _ = e.CreateGameObject("piso", e.SHAPE_RECTANGLE, e.NewSize(900, 50), e.NewPosition(0, 350))
@@ -24,9 +28,6 @@ func main() {
 		})
 		obstaculos.SetUpdate(func(g *e.GameObject, goe *e.GameObjectEvent) {
 
-			if em := goe.OnCollisionInTheGroup("o"); em != nil {
-				e.NewUiText(e.GetCurrentScene(), "perdistes aña", e.NewPosition(100, 100), 50)
-			}
 		})
 		piso.SetUpdate(func(cl *e.GameObject, goe *e.GameObjectEvent) {
 			cl.SetSize(e.NewSize(cl.Size().W+5, cl.Size().H))
@@ -34,8 +35,7 @@ func main() {
 		player.SetUpdate(func(cl *e.GameObject, goe *e.GameObjectEvent) {
 			cl.MoveTo(e.NewPosition(cl.Position().X, cl.Position().Y+5))
 			if gh := cl.MoveTo(e.NewPosition(cl.Position().X+2, cl.Position().Y)); gh != nil {
-				enzo := e.NewUiText(e.GetCurrentScene(), "perdistes aña", e.NewPosition(0, 0), 20)
-				enzo.SetColor3(255, 0, 0)
+				e.SetScene(overScene)
 			}
 		})
 		e.GetCurrentScene().SetCamera(camara)
@@ -44,6 +44,7 @@ func main() {
 		cada = int(player.Position().X + 10)
 	},
 		func(ge *e.GameEvent) {
+			//e.SetScene(overScene)
 			camara.SetTarget(e.NewPosition(player.Position().X, piso.Position().Y-200))
 			if cada > 150 {
 				obstaculos.Instance(e.GetCurrentScene(), e.NewPosition(player.Position().X+20+camara.Target().X, 320))
