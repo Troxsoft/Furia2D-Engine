@@ -55,7 +55,7 @@ func (k *GameObjectEvent) RayCast(initPos Position, dirreccion Position, long ui
 	return RayCast(k.obj.id, initPos, dirreccion, long, jump)
 }
 func (k *GameObjectEvent) RayCastDefault(initPos Position, dirreccion Position, long uint32) *GameObject {
-	return RayCast(k.obj.id, initPos, dirreccion, long, 2)
+	return RayCast(k.obj.id, initPos, dirreccion, long, 1)
 }
 func (k *GameObjectEvent) IsMouseUp(mouse int32) bool {
 	if rl.IsMouseButtonUp(mouse) {

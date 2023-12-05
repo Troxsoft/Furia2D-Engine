@@ -2,6 +2,8 @@ package engine
 
 import (
 	"fmt"
+
+	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
 func _newGameObjectUnregister(pos Position, siz Size, shape Shape, id int) *GameObject {
@@ -19,12 +21,31 @@ func RayCast(idToIgnore int, initPos Position, dirreccion Position, long uint32,
 	var i uint32
 	ojb := _newGameObjectUnregister(initPos, NewSize(2, 2), SHAPE_RECTANGLE, idToIgnore)
 	for i = 0; i < long; i += uint32(jump) {
-		vectorPos := NewPosition(initPos.X+dirreccion.X+int32(i), initPos.Y+dirreccion.Y+int32(i))
+		x := initPos.X + dirreccion.X + int32(i)
+		if dirreccion.X < 0 {
+			x = initPos.X + dirreccion.X - int32(i)
+		}
+		if dirreccion.X == 0 {
+			x = initPos.X
+		}
+
+		y := initPos.Y + dirreccion.Y + int32(i)
+		if dirreccion.Y < 0 {
+			y = initPos.Y + dirreccion.Y + int32(i)
+		}
+		if dirreccion.Y == 0 {
+			y = initPos.Y
+		}
+		vectorPos := NewPosition(x, y)
+		//fmt.Println(vectorPos)
 		if cp23 := ojb.collision.OnCollisionPos(vectorPos); cp23 != nil {
 			return cp23
 		}
 	}
 	return nil
+}
+func DrawRayCast(initPos Position, dirreccion Position, long uint32, color Color) {
+	rl.DrawLine(initPos.X, initPos.Y, initPos.X+(dirreccion.X*int32(long)), initPos.Y+(dirreccion.Y*int32(long)), ConvertColor(color))
 }
 
 /*

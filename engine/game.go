@@ -42,8 +42,12 @@ func _update() {
 
 }
 
-var scene_32445 *Scene = NewScene()
+var defult_scene *Scene = NewScene()
+var scene_32445 *Scene = defult_scene
 
+func GetDefaultScene() *Scene {
+	return defult_scene
+}
 func InitGame(title string, size Size, start func(*GameEvent), update func(*GameEvent)) {
 	isRunning = true
 	err := dialog.Init()
