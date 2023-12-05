@@ -7,8 +7,13 @@ import (
 func main() {
 	e.InitGame("welcome to Furia2D-Engine :)", e.NewSize(500, 400), func(ge *e.GameEvent) {
 
-		e.NewSound("mario.mp3").Play()
-		//fmt.Println(obj.F)
+		e.PlaySound("mario.mp3") // EASY
+		/*	DIFFICULT
+
+			musica = e.NewMusic("mario.mp3")
+
+			musica.Play()
+		*/
 	},
 		func(ge *e.GameEvent) {
 
