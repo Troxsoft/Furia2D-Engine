@@ -62,4 +62,4 @@ func main() {
 
 ```
 - more examples in'examples'
-#### FURIA2D is funny and easy
+#### FURIA2D is easy or very easy ???
