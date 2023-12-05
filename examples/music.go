@@ -10,11 +10,13 @@ var (
 
 func main() {
 	e.InitGame("welcome to Furia2D-Engine :)", e.NewSize(500, 400), func(ge *e.GameEvent) {
-		musica = e.NewMusic("mario.mp3")
+		e.PlaySound("mario.mp3") // EASY
+		/*	DIFFICULT
 
-		musica.Play()
+			musica = e.NewMusic("mario.mp3")
 
-		//fmt.Println(obj.F)
+			musica.Play()
+		*/
 	},
 		func(ge *e.GameEvent) {
 			if ge.IsKeyPressed(ge.KeyA) {

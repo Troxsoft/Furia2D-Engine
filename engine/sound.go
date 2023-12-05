@@ -7,6 +7,9 @@ type Sound struct {
 	sound rl.Sound
 }
 
+func PlaySound(path string) {
+	NewSound(path).Play()
+}
 func NewSound(path string) *Sound {
 	return &Sound{
 		path:  path,
