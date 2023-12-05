@@ -18,7 +18,6 @@ func main() {
 	},
 		func(ge *e.GameEvent) {
 			e.GetCurrentScene().Camera().SetTarget(e.NewPosition(obj.Position().X-250, obj.Position().Y-200))
-
 			if ge.IsKeyDown(ge.KeyRight) {
 				obj.MoveTo(e.NewPosition(obj.Position().X+5, obj.Position().Y))
 			}

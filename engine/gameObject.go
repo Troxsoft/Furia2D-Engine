@@ -110,6 +110,23 @@ func (g *GameObject) IsInGroup(gr string) bool {
 func (g *GameObject) Position() Position {
 	return g.position
 }
+func (g *GameObject) Pos() Position {
+	return g.Position()
+}
+
+/*
+physics type: Colliders and collisions[OFF]
+*/
+func (g *GameObject) SetPos(pos Position) {
+	g.SetPosition(pos)
+}
+
+/*
+physics type: Colliders and collisions[OFF]
+*/
+func (g *GameObject) SetPos2(x, y int32) {
+	g.SetPosition2(x, y)
+}
 
 /*
 physics type: Colliders and collisions[OFF]
@@ -213,6 +230,7 @@ func (g *GameObject) Instance(scene *Scene, params any) *GameObject {
 func (g *GameObject) SetFunction(nameFunction string, function func(*GameObject, any)) {
 	g.funcs[nameFunction] = function
 }
+
 func (g *GameObject) Functions() map[string]func(*GameObject, any) {
 	newV := make(map[string]func(*GameObject, any))
 	for k, v := range g.funcs {

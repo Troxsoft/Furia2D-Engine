@@ -1,5 +1,7 @@
 package engine
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 type Position struct {
 	X int32
 	Y int32
@@ -79,4 +81,17 @@ func Clampf32(value, max, min float32) float32 {
 		return min
 	}
 	return value
+}
+
+func (p Position) Normalize() Position {
+	vec := rl.Vector2Normalize(rl.NewVector2(float32(p.X), float32(p.Y)))
+	return NewPos(int32(vec.X), int32(vec.Y))
+}
+func (p Position) DistanceTo(pos Position) float32 {
+	vec := rl.Vector2Distance(rl.NewVector2(float32(p.X), float32(p.Y)), rl.NewVector2(float32(pos.X), float32(pos.Y)))
+	return vec
+}
+func (p Position) DistanceSqrTo(pos Position) float32 {
+	vec := rl.Vector2DistanceSqr(rl.NewVector2(float32(p.X), float32(p.Y)), rl.NewVector2(float32(pos.X), float32(pos.Y)))
+	return vec
 }
