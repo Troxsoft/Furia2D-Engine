@@ -82,6 +82,16 @@ func (g *GameObject) SetSize2(w, h uint) {
 	g.size.W = w
 	g.size.H = h
 }
+
+//	func (g *GameObject) PrintGameObject() {
+//		fmt.Printf(
+//			`
+//		-Game object Name: '%s' SHAPE: '%s'
+//
+// -Position: X = %f | Y = %f
+// -Color: R = %s | G = %s | B = %s | A(alpha) = %s
+// `, g.Name(), g.Shape(), g.Pos().X, g.Pos().Y, g.Color().R, g.Color().G, g.Color().B, g.Color().A)
+// }
 func GetGameObjectsInTheGroup(gr string) []*GameObject {
 	groupsd := []*GameObject{}
 	for i := 0; i < len(scene_32445.instancesGameObjects); i++ {

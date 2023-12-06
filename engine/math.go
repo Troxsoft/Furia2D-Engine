@@ -1,6 +1,22 @@
 package engine
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	"math/rand"
+	"time"
+
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
+
+var random = rand.New(rand.NewSource(time.Now().UnixNano()/2 + (time.Now().UnixNano()/7)*2))
+
+/*
+-> RandomRange(0,1) -> 0 or 1
+-> RandomRange(0,10) -> 0..10 -> 0,1,2,3,4,5,6,7,8,9,10
+*/
+func RandomRange(min, max int) int {
+	max = max + 1
+	return random.Intn(max-min) + min
+}
 
 type Position struct {
 	X float64

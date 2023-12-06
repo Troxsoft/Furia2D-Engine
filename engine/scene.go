@@ -29,6 +29,51 @@ func (s *Scene) GameObjectsObjects() []*GameObject {
 	return s.instancesGameObjects
 }
 
+func (s *Scene) GameObjectsInTheGroup(gr string) []*GameObject {
+	return GetGameObjectsInTheGroup(gr)
+}
+func (s *Scene) FistGameObjectsInTheGroup(gr string) *GameObject {
+	return GetGameObjectsInTheGroup(gr)[0]
+}
+func (s *Scene) LastGameObjectsInTheGroup(gr string) *GameObject {
+	return GetGameObjectsInTheGroup(gr)[len(GetGameObjectsInTheGroup(gr))-1]
+}
+func (s *Scene) FistGameObject() *GameObject {
+	return s.instancesGameObjects[0]
+}
+func (s *Scene) LastGameObject() *GameObject {
+	return s.instancesGameObjects[len(s.instancesGameObjects)-1]
+}
+
+func (s *Scene) GameObjectWithName(name string) []*GameObject {
+	v := []*GameObject{}
+	for i := 0; i < len(s.instancesGameObjects); i++ {
+		if s.instancesGameObjects[i].Name() == name {
+			v = append(v, s.instancesGameObjects[i])
+		}
+	}
+	return v
+}
+func (s *Scene) LastGameObjectWithName(name string) *GameObject {
+	v := []*GameObject{}
+	for i := 0; i < len(s.instancesGameObjects); i++ {
+		if s.instancesGameObjects[i].Name() == name {
+			v = append(v, s.instancesGameObjects[i])
+		}
+	}
+	return v[len(v)-1]
+}
+func (s *Scene) FirstGameObjectWithName(name string) *GameObject {
+
+	for i := 0; i < len(s.instancesGameObjects); i++ {
+		if s.instancesGameObjects[i].Name() == name {
+			return s.instancesGameObjects[i]
+		}
+	}
+	return nil
+
+}
+
 func (s *Scene) Camera() *Camera {
 	return s.camera
 }
