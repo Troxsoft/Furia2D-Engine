@@ -10,9 +10,9 @@ func main() {
 		e.PlaySound("mario.mp3") // EASY
 		/*	DIFFICULT
 
-			musica = e.NewMusic("mario.mp3")
+			s := e.NewSound("mario.mp3")
 
-			musica.Play()
+			s.Play()
 		*/
 	},
 		func(ge *e.GameEvent) {

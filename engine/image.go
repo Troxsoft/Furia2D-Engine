@@ -12,7 +12,7 @@ func (fi *FuriaImage) DrawImage(pos Position, color Color, size Size) {
 	if fi.Ignore == false {
 		fi.raylibTexture.Width = int32(size.W)
 		fi.raylibTexture.Height = int32(size.H)
-		rl.DrawTexture(fi.raylibTexture, pos.X, pos.Y, ConvertColor(color))
+		rl.DrawTexture(fi.raylibTexture, int32(pos.X), int32(pos.Y), ConvertColor(color))
 	}
 }
 func (fi *FuriaImage) Destroy() {

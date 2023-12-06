@@ -21,17 +21,17 @@ func RayCast(idToIgnore int, initPos Position, dirreccion Position, long uint32,
 	var i uint32
 	ojb := _newGameObjectUnregister(initPos, NewSize(2, 2), SHAPE_RECTANGLE, idToIgnore)
 	for i = 0; i < long; i += uint32(jump) {
-		x := initPos.X + dirreccion.X + int32(i)
+		x := initPos.X + dirreccion.X + float64(i)
 		if dirreccion.X < 0 {
-			x = initPos.X + dirreccion.X - int32(i)
+			x = initPos.X + dirreccion.X - float64(i)
 		}
 		if dirreccion.X == 0 {
 			x = initPos.X
 		}
 
-		y := initPos.Y + dirreccion.Y + int32(i)
+		y := initPos.Y + dirreccion.Y + float64(i)
 		if dirreccion.Y < 0 {
-			y = initPos.Y + dirreccion.Y + int32(i)
+			y = initPos.Y + dirreccion.Y + float64(i)
 		}
 		if dirreccion.Y == 0 {
 			y = initPos.Y
@@ -45,7 +45,7 @@ func RayCast(idToIgnore int, initPos Position, dirreccion Position, long uint32,
 	return nil
 }
 func DrawRayCast(initPos Position, dirreccion Position, long uint32, color Color) {
-	rl.DrawLine(initPos.X, initPos.Y, initPos.X+(dirreccion.X*int32(long)), initPos.Y+(dirreccion.Y*int32(long)), ConvertColor(color))
+	rl.DrawLine(int32(initPos.X), int32(initPos.Y), int32(initPos.X+(dirreccion.X*float64(long))), int32(initPos.Y+(dirreccion.Y*float64(long))), ConvertColor(color))
 }
 
 /*

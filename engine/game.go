@@ -3,6 +3,7 @@ package engine
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/tawesoft/golib/v2/dialog"
@@ -25,7 +26,7 @@ func SetBackgroundColor(color_ Color) {
 }
 
 func GetMousePosition() Position {
-	return NewPosition(rl.GetMouseX(), rl.GetMouseY())
+	return NewPosition(float64(rl.GetMouseX()), float64(rl.GetMouseY()))
 }
 func _update() {
 	for i := 0; i < len(musics_update); i++ {
@@ -45,6 +46,12 @@ func _update() {
 var defult_scene *Scene = NewScene()
 var scene_32445 *Scene = defult_scene
 
+func FPS() float64 {
+	return float64(rl.GetFPS())
+}
+func Sleep(mil time.Duration) {
+	time.Sleep(mil * time.Millisecond)
+}
 func GetDefaultScene() *Scene {
 	return defult_scene
 }

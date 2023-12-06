@@ -34,7 +34,7 @@ func main() {
 }
 
 ```
-- Instances/reuse code/inheritance ???
+- Instances/reuse code !?
 ```go
 package main
 
@@ -53,7 +53,6 @@ func main() {
 		})
 		obj.Instance(e.GetCurrentScene(), e.NewPos(20, 20))
 		obj.Instance(e.GetCurrentScene(), e.NewPos(60, 60))
-		//fmt.Println(obj.F)
 	},
 		func(ge *e.GameEvent) {
 

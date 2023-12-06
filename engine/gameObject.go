@@ -124,14 +124,14 @@ func (g *GameObject) SetPos(pos Position) {
 /*
 physics type: Colliders and collisions[OFF]
 */
-func (g *GameObject) SetPos2(x, y int32) {
+func (g *GameObject) SetPos2(x, y float64) {
 	g.SetPosition2(x, y)
 }
 
 /*
 physics type: Colliders and collisions[OFF]
 */
-func (g *GameObject) SetPosition2(x, y int32) {
+func (g *GameObject) SetPosition2(x, y float64) {
 	g.position.X = x
 	g.position.Y = y
 }
@@ -264,7 +264,7 @@ func (g *GameObject) Draw() {
 		if g.hide == false {
 
 			if g.shape == SHAPE_RECTANGLE {
-				rl.DrawRectangle(g.position.X, g.position.Y, int32(g.size.W), int32(g.size.H), ConvertColor(g.GetVar("color").(Color)))
+				rl.DrawRectangle(int32(g.position.X), int32(g.position.Y), int32(g.size.W), int32(g.size.H), ConvertColor(g.GetVar("color").(Color)))
 			} else if g.shape == SHAPE_IMAGE {
 				if g.GetVar("image") != nil {
 					g.GetVar("image").(*FuriaImage).DrawImage(g.Position(), g.GetVar("color").(Color), g.size)

@@ -13,8 +13,6 @@ func main() {
 		musica = e.NewMusic("mario.mp3")
 
 		musica.Play()
-
-		//fmt.Println(obj.F)
 	},
 		func(ge *e.GameEvent) {
 			if ge.IsKeyPressed(ge.KeyA) {

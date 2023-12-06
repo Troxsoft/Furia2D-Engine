@@ -39,3 +39,9 @@ func (t *Timer) Reinitiate() {
 	t.startTime = rl.GetTime()
 	t.ifDone = false
 }
+func Time() float64 {
+	return rl.GetTime()
+}
+func FrameTime() float32 {
+	return rl.GetFrameTime()
+}

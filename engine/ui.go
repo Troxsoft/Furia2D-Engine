@@ -23,7 +23,7 @@ func NewUiButton(scene *Scene, txt string, color Color, pos Position, siz Size) 
 		size:   siz,
 		hide:   false,
 		Zone:   NewUiColorZone(scene, color, pos, siz),
-		Text:   NewUiText(scene, txt, NewPosition(int32(siz.W)/2+pos.X-int32(len(txt))*3, int32(siz.H)/2+pos.Y), 15),
+		Text:   NewUiText(scene, txt, NewPosition(float64(siz.W)/2+pos.X-float64(len(txt))*3, float64(siz.H)/2+pos.Y), 15),
 		colorA: color,
 		wr:     false,
 	}
@@ -52,8 +52,8 @@ func (b *UiButton) add(scene *Scene) *UiButton {
 	return scene.ui_button[len(scene.ui_button)-1]
 }
 func (b *UiButton) Draw() {
-	b.Text.pos.X = int32(b.size.W)/2 + b.pos.X - int32(len(b.Text.text))*3
-	b.Text.pos.Y = int32(b.size.H)/2 + b.pos.Y
+	b.Text.pos.X = float64(b.size.W)/2 + b.pos.X - float64(len(b.Text.text))*3
+	b.Text.pos.Y = float64(b.size.H)/2 + b.pos.Y
 	x := GetMousePosition().X
 	y := GetMousePosition().Y
 
@@ -96,8 +96,8 @@ func (b *UiButton) Size() Size {
 func (b *UiButton) SetSize(nsize Size) {
 	b.size = nsize
 	b.Zone.size = nsize
-	b.Text.pos.X = int32(b.size.W)/2 + b.pos.X - int32(len(b.Text.text))*3
-	b.Text.pos.Y = int32(b.size.H)/2 + b.pos.Y
+	b.Text.pos.X = float64(b.size.W)/2 + b.pos.X - float64(len(b.Text.text))*3
+	b.Text.pos.Y = float64(b.size.H)/2 + b.pos.Y
 	//NewPosition((pos.X/2)+(pos.X-int32(siz.W)/2), (pos.Y/2)+(pos.Y-int32(siz.H)/2))
 }
 
@@ -107,8 +107,8 @@ func (b *UiButton) Position() Position {
 func (b *UiButton) SetPosition(nPos Position) {
 	b.pos = nPos
 	b.Zone.pos = b.pos
-	b.Text.pos.X = int32(b.size.W)/2 + b.pos.X - int32(len(b.Text.text))*3
-	b.Text.pos.Y = int32(b.size.H)/2 + b.pos.Y
+	b.Text.pos.X = float64(b.size.W)/2 + b.pos.X - float64(len(b.Text.text))*3
+	b.Text.pos.Y = float64(b.size.H)/2 + b.pos.Y
 }
 
 type UiColorZone struct {
@@ -232,7 +232,7 @@ func (text *UiText) Draw() {
 
 		if text.font == nil {
 
-			rl.DrawText(text.text, text.pos.X, text.pos.Y, int32(text.size), ConvertColor(text.color))
+			rl.DrawText(text.text, int32(text.pos.X), int32(text.pos.Y), int32(text.size), ConvertColor(text.color))
 		} else {
 			rl.DrawTextEx(rl.LoadFont(text.FontName()), text.text, rl.NewVector2(float32(text.pos.X), float32(text.pos.Y)), float32(text.size), 0.5, ConvertColor(text.color))
 		}
