@@ -9,6 +9,11 @@ A game engine written using Golang 100% using the powerful Raylib library
 
 ![Raylib](https://github.com/raysan5/raylib)
 ![Raylib-go](https://github.com/gen2brain/raylib-go)
+### Getting Started and INSTALL
+type on the terminal in you golang proyect
+```bash
+ go get github.com/Troxsoft/Furia2D-Engine/engine
+```
 
 ### Examples
 - Hello rectangle 
