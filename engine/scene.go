@@ -11,6 +11,7 @@ type Scene struct {
 	//button
 	ui_button []*UiButton
 	camera    *Camera
+	areas     []*CollisionArea
 }
 
 func (s *Scene) IsCurrent() bool {
@@ -80,7 +81,9 @@ func (s *Scene) Camera() *Camera {
 func (s *Scene) SetCamera(c *Camera) {
 	s.camera = c
 }
-
+func (s *Scene) CollisionsAreas() []*CollisionArea {
+	return s.areas
+}
 func NewScene() *Scene {
 	return &Scene{
 		instancesGameObjects: []*GameObject{},
@@ -88,6 +91,7 @@ func NewScene() *Scene {
 		ui_colorZone:         []*UiColorZone{},
 		ui_button:            []*UiButton{},
 		camera:               nil,
+		areas:                []*CollisionArea{},
 	}
 }
 func SetScene(s *Scene) {
@@ -97,6 +101,7 @@ func GetCurrentScene() *Scene {
 	return scene_32445
 }
 func (s *Scene) Draw() {
+
 	if s.camera != nil {
 		rl.ClearBackground(ConvertColor(colorBackColor))
 		//rl.DrawText("ano", 30, 100, 29, rl.Brown)
@@ -117,14 +122,37 @@ func (s *Scene) Draw() {
 
 		}
 		rl.BeginMode2D(s.camera.camera)
-
+		for i := 0; i < len(s.areas); i++ {
+			p5 := s.areas[i].gob.collision.OnCollision()
+			var xbsx *GameObjectEvent = nil
+			if p5 != nil {
+				xbsx = NewGameObjectEvent(p5)
+			}
+			s.areas[i].onCollision(s.areas[i], p5, xbsx)
+			if s.areas[i].debugColor != nil {
+				rl.DrawRectangle(int32(s.areas[i].position.X), int32(s.areas[i].position.Y), int32(s.areas[i].size.W), int32(s.areas[i].size.H), ConvertColor(*s.areas[i].debugColor))
+			}
+		}
 		_update()
+
 	} else {
 		rl.ClearBackground(ConvertColor(colorBackColor))
+
 		for i := 0; i < len(s.ui_colorZone); i++ {
 			//fmt.Println(rl.IsK)
 			s.ui_colorZone[i].Draw()
 
+		}
+		for i := 0; i < len(s.areas); i++ {
+			p5 := s.areas[i].gob.collision.OnCollision()
+			var xbsx *GameObjectEvent = nil
+			if p5 != nil {
+				xbsx = NewGameObjectEvent(p5)
+			}
+			s.areas[i].onCollision(s.areas[i], p5, xbsx)
+			if s.areas[i].debugColor != nil {
+				rl.DrawRectangle(int32(s.areas[i].position.X), int32(s.areas[i].position.Y), int32(s.areas[i].size.W), int32(s.areas[i].size.H), ConvertColor(*s.areas[i].debugColor))
+			}
 		}
 		_update()
 		for i := 0; i < len(s.ui_text); i++ {
